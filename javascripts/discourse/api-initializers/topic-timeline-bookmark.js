@@ -11,7 +11,7 @@ export default apiInitializer("0.11.1", (api) => {
   api.createWidget("topic-timeline-bookmark", {
     tagName: "div.discourse-bookmark-button-wrapper",
 
-    buildKey: () => "topic-timeline-bookmark",
+    buildKey: () => `topic-timeline-bookmark`,
     
     //Will trigger when topic-timeline bookmark button is clicked. And internally it will call toggleBookmark of the Topic ocntroller to have default bookmark functionality.
     toggleBookmark() {
@@ -92,35 +92,13 @@ export default apiInitializer("0.11.1", (api) => {
     bookmarksChanged() {
       this.scheduleRerender();
     },
-
-    pageBookmarkPostToggled() {
-      this.scheduleRerender();
-    },
   });
 
-  //Attach topic-timeline-bookmark after the topic-timeline widget.
-  api.decorateWidget("topic-timeline:after", function (helper) {
-    return helper.attach("topic-timeline-bookmark");
-  });
-
-  //Refresh the topic-timeline widget whenever the topic bookmark is toggled
+  //Refresh the topic-timeline-bookmark widget whenever the bookmarks:changes event is triggered.
   api.dispatchWidgetAppEvent(
-    "topic-timeline",
+    "topic-timeline-bookmark-container",
     "topic-timeline-bookmark",
     "bookmarks:changed"
   );
 
-  //Refresh the topic-timeline widget whenever the post bookmark is toggled
-  api.dispatchWidgetAppEvent(
-    "topic-timeline",
-    "topic-timeline-bookmark",
-    "page:bookmark-post-toggled"
-  );
-
-  //Refresh the topic-timeline widget whenever the post-stream is refreshed
-  api.dispatchWidgetAppEvent(
-    "topic-timeline",
-    "topic-timeline-bookmark",
-    "post-stream:refresh"
-  );
 });
