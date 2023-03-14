@@ -13,7 +13,7 @@ export default apiInitializer("0.11.1", (api) => {
 
     buildKey: () => `topic-timeline-bookmark`,
     
-    //Will trigger when topic-timeline bookmark button is clicked. And internally it will call toggleBookmark of the Topic ocntroller to have default bookmark functionality.
+    //Will trigger when topic-timeline bookmark button is clicked. And internally it will call toggleBookmark of the Topic controller to have default bookmark functionality.
     toggleBookmark() {
       const topicController = getOwner(this).lookup("controller:topic");
       topicController.send("toggleBookmark");
@@ -94,7 +94,7 @@ export default apiInitializer("0.11.1", (api) => {
     },
   });
 
-  //Refresh the topic-timeline-bookmark widget whenever the bookmarks:changes event is triggered.
+  //Refresh the topic-timeline-bookmark widget whenever the bookmarks:changed event is triggered.
   api.dispatchWidgetAppEvent(
     "topic-timeline-bookmark-container",
     "topic-timeline-bookmark",
